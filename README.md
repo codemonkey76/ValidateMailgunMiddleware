@@ -16,3 +16,10 @@ make sure you disable CSRF protection for the mailgun webhook URI by adding the 
 ```
 protected $except = ['/Mailgun-Webhook-Uri'];
 ```
+
+then just move the ValidateMailgun.php file to your app/Http/Middleware folder and add the middleware to your route in routes/web.php
+```
+Route::middleware(['validateMailgun'])->group(function() {
+    Route::post('/Mailgun-Webhook-Uri', 'InboundEmailController@receive');
+});
+```
